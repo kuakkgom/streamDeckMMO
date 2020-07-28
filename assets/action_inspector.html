@@ -1,0 +1,54 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>io.djewell.mmomacro.action PI</title>
+        <meta charset="utf-8" />
+        <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover">
+        <meta name=apple-mobile-web-app-capable content=yes>
+        <meta name=apple-mobile-web-app-status-bar-style content=black>
+        <link rel="stylesheet" href="css/pi.css">
+    </head>
+    <body>
+    <!-- Need to add "group" text field and a file selector. Can't fetch image from deck...can only push -->
+        <div class="sdpi-wrapper">
+            <div class="sdpi-item" id="my_private_file_selector">
+                <div class="sdpi-item-label">Icon</div>
+                <div class="sdpi-item-group file" id="filepickergroup">
+                    <input class="sdpi-item-value" type="file" name="iconFile" accept=".jpg, .jpeg, .png">
+                 </div>
+             </div>
+            <div class="sdpi-item" id="group">
+                <div class="sdpi-item-label">Group Name</div> 
+                <input class="sdpi-item-value" type="text" name="group">
+            </div>
+            <div class="sdpi-item" id="resourceCost">
+                <div class="sdpi-item-label">Resource Cost</div> 
+                <input class="sdpi-item-value" inputmode="numeric" pattern="[0-9]*" type="number" name="resourceCost">
+            </div>
+            <div class="sdpi-item" id="cooldown">
+                <div class="sdpi-item-label">Cooldown (MS)</div> 
+                <input class="sdpi-item-value" inputmode="numeric" pattern="[0-9]*" type="number" name="cooldown">
+            </div>
+            <div class="sdpi-item" id="effectivePosition">
+                <div class="sdpi-item-label">Effective Position</div> 
+                <select class="sdpi-item-value select" name="effectivePosition">
+                   <option value="any">Any</option>
+                   <option value="rear">Rear</option>
+                   <option value="flank">Flank</option>
+                   <option value="front">Front</option>
+                </select> 
+            </div>
+            <div type="textarea" class="sdpi-item" id="macro">
+                <div class="sdpi-item-label">Macro</div>
+                <div class="sdpi-item-value textarea">
+                    <textarea type="textarea" name="macro" required></textarea>
+                </div>
+            </div>
+            <div class="sdpi-item" id="runCount">
+                <div class="sdpi-item-label">Run Count (0 loops until next keypress)</div> 
+                <input class="sdpi-item-value" inputmode="numeric" pattern="[0-9]*" type="number" name="runCount">
+            </div>
+        </div>
+        <script src="scripts/pi.js"></script>
+    </body>
+</html>

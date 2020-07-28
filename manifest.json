@@ -1,0 +1,38 @@
+﻿{
+    "Actions": [
+        {
+            "Icon": "assets/images/placeholder",
+            "Name": "MMO Macro",
+            "States": [
+                {
+                    "Image": "assets/images/placeholder"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "UUID": "io.djewell.mmomacro.action",
+            "PropertyInspectorPath": "assets/action_inspector.html"
+        }
+    ],
+    "SDKVersion": 2,
+    "Author": "Derek Jewell",
+    "CodePathWin": "start.bat",
+    "CodePathMac": "start.sh",
+    "Description": "Macro set intended for MMO scenarios",
+    "Name": "MMO Macro",
+    "Icon": "assets/images/baseIcon",
+    "Version": "1.0.0",
+    "OS": [
+        {
+            "Platform": "mac",
+            "MinimumVersion" : "10.11"
+        },
+        {
+            "Platform": "windows",
+            "MinimumVersion" : "10"
+        }
+    ],
+    "Software": 
+    {
+        "MinimumVersion" : "4.1"
+    }
+}

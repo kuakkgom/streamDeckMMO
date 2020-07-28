@@ -1,0 +1,15 @@
+{
+    "name": "streamDeckMMOMacro",
+    "version": "1.0.0",
+    "description": "Successor to BarRaider",
+    "main": "app.js",
+    "author": "Derek Jewell",
+    "license": "WTFPL",
+    "dependencies": {
+        "canvas": "^2.6.1",
+        "kbm-robot": "^0.0.4",
+        "ws": "^7.3.1",
+        "yargs": "^15.4.1"
+    },
+    "devDependencies": {}
+}
