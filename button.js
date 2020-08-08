@@ -31,6 +31,24 @@ class Button
         this.#canvasOperations = new CanvasOperations(this, emitter);
     }
 
+    cleanup()
+    {
+        this.#canvasOperations.cleanup();
+
+        this.stopAnimating();
+        this.stopRunning();
+
+        if (this.#groupFunction)
+        {
+            this.#emitter.removeListener(`group:${this.group}`, this.#groupFunction);
+        }
+
+        if (this.#boundLoopFunc)
+        {
+            this.#emitter.removeListener("cooldownComplete", this.#boundLoopFunc)
+        }
+    }
+
     updateSettings(settings)
     {
         if (this.group && this.#groupFunction)
@@ -127,21 +145,26 @@ class Button
 
     runMacro()
     {
-        if (!this.macro)
-        {
-            return;
-        }
-
         this.#macroFunction = new Function("shared", "button", "loopFunc", this.macro);
 
         this.startRunning();
 
         if (this.isSingleRun())
         {
-            this.#canvasOperations.doAnimation();
-            this.groupAnimationEmit()
+            if (this.canBeAnimated())
+            {
+                this.#boundLoopFunc = this.stopSingleRun.bind(this);
+                this.#emitter.on("cooldownComplete", this.#boundLoopFunc);
+                this.#canvasOperations.doAnimation();
+            }
+
+            this.groupAnimationEmit();
             this.#macroFunction(this.global, this);
-            this.stopRunning();
+
+            if (!this.canBeAnimated())
+            {
+                this.stopRunning();
+            }
         }
         else
         {
@@ -156,6 +179,12 @@ class Button
             this.#emitter.emit("imageReload", this.uuid);
             this.#boundLoopFunc();
         }
+    }
+
+    stopSingleRun()
+    {
+        this.#emitter.removeListener("cooldownComplete", this.#boundLoopFunc);
+        this.stopRunning();
     }
 
     runLoop(animationFinishedButtonUUID)
@@ -192,7 +221,11 @@ class Button
             this.#emitter.emit("imageReload", this.uuid);
             this.stopRunning();
         }
+    }
 
+    stopAnimating()
+    {
+        this.#canvasOperations.stopAnimating();
     }
 
     get cooldown()

@@ -15,6 +15,7 @@ class CanvasOperations
     #canvas;
     #context;
     #emitter;
+    #boundLoadStaticImageFunc;
 
     constructor(button, emitter)
     {
@@ -25,7 +26,14 @@ class CanvasOperations
 
         this.loadStaticImage();
 
-        this.#emitter.on("imageReload", this.loadStaticImage.bind(this));
+        this.#boundLoadStaticImageFunc = this.loadStaticImage.bind(this);
+        this.#emitter.on("imageReload", this.#boundLoadStaticImageFunc);
+    }
+
+    cleanup()
+    {
+        this.stopAnimating();
+        this.#emitter.removeListener("imageReload", this.#boundLoadStaticImageFunc);
     }
 
     wrapContextCall(callBack, args)
@@ -186,14 +194,16 @@ class CanvasOperations
     doAnimation(alternateCooldown)
     {
         if (this.#button.canBeAnimated())
-        {
+        {            
+            this.#animating = true;
+
             if (this.#animationIntervalId)
             {
                 clearInterval(this.#animationIntervalId);
             }
 
             this.#animationTimestamp = Date.now();
-            this.#animationIntervalId = setInterval(this.animateCooldown.bind(this, alternateCooldown), 50);
+            this.#animationIntervalId = setInterval(this.animateCooldown.bind(this, alternateCooldown), 100);
         }
     }
 
@@ -236,8 +246,6 @@ class CanvasOperations
             return;
         }
 
-        this.#animating = true;
-
         context.globalCompositeOperation = "multiply";
         context.fillStyle = "rgba(40, 40, 40, 0.7)";
         context.arc(36, 36, 100, (Math.PI/180) * -90, adjustedRadians, true);
@@ -254,6 +262,17 @@ class CanvasOperations
         });
     }
 
+    stopAnimating()
+    {
+        if (this.#button.canBeAnimated())
+        {
+            if (this.#animationIntervalId)
+            {
+                clearInterval(this.#animationIntervalId);
+                this.#animating = false;
+            }
+        }
+    }
     get dataUrl()
     {
         return this.#canvas.toDataURL("image/png");

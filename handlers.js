@@ -150,16 +150,25 @@ class Handlers
 
     willDisappear(message)
     {
+        const button = this.getInstance(message.context);
+
+        if (button)
+        {
+            button.cleanup();
+        }
+
         if (message.payload.settings.group)
         {
             this.removeInstanceFromGroup(message);
         }
+
+        delete this.#buttonInstances[message.context];
     }
 
     // Animate if we got it - and macro if we got it?
     keyUp(message)
     {
-        const button = this.#buttonInstances[message.context];
+        const button = this.getInstance(message.context);
 
         // Abort loop
         if (button.shouldLoop())
