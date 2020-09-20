@@ -1,2 +1,2 @@
 ﻿#! /bin/bash
-yarn install && node app.js $@
+yarn install && node src/app.js $@

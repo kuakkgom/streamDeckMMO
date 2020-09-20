@@ -1,1 +1,1 @@
-yarn install && node app.js %* > node.log 2> node_err.log
+yarn install && node src/app.js %* >> node.log 2>> node_err.log

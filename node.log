@@ -1,0 +1,214 @@
+rs false
+[]
+rs false
+[]
+rs false
+[]
+bar
+pq true
+start 0.37190804554957535
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'h', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'ello ', 60, 60 ], done: false }
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'W', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'orld', 60, 60 ], done: false }
+outside loop
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+bar
+pq true
+start 0.24684638599264064
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'h', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'ello ', 60, 60 ], done: false }
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'W', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'orld', 60, 60 ], done: false }
+outside loop
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+bar
+rs false
+[ KBMEventEntity {} ]
+bar
+rs false
+[ KBMEventEntity {}, KBMEventEntity {} ]
+bar
+rs false
+[ KBMEventEntity {}, KBMEventEntity {}, KBMEventEntity {} ]
+rs false
+[ KBMEventEntity {}, KBMEventEntity {}, KBMEventEntity {} ]
+rs false
+[ KBMEventEntity {}, KBMEventEntity {}, KBMEventEntity {} ]
+rs false
+[ KBMEventEntity {}, KBMEventEntity {}, KBMEventEntity {} ]
+rs false
+[ KBMEventEntity {}, KBMEventEntity {}, KBMEventEntity {} ]
+rs false
+[ KBMEventEntity {}, KBMEventEntity {}, KBMEventEntity {} ]
+pq true
+start 0.5831632078220361
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'h', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'ello ', 60, 60 ], done: false }
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'W', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'orld', 60, 60 ], done: false }
+outside loop
+start 0.44532098182190194
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'h', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'ello ', 60, 60 ], done: false }
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'W', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'orld', 60, 60 ], done: false }
+outside loop
+start 0.4204568917178806
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'h', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'ello ', 60, 60 ], done: false }
+{ value: [ 'press', 'SHIFT' ], done: false }
+{ value: [ 'type', 'W', 120 ], done: false }
+{ value: [ 'release', 'SHIFT' ], done: false }
+{ value: [ 'typeString', 'orld', 60, 60 ], done: false }
+outside loop
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]
+rs false
+[]

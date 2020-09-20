@@ -2,7 +2,7 @@
     "Actions": [
         {
             "Icon": "assets/images/placeholder",
-            "Name": "MMO Macro",
+            "Name": "MMM Button",
             "States": [
                 {
                     "Image": "assets/images/placeholder"
@@ -11,6 +11,28 @@
             "SupportedInMultiActions": false,
             "UUID": "io.djewell.mmomacro.action",
             "PropertyInspectorPath": "assets/action_inspector.html"
+        },
+        {
+            "Icon": "assets/images/placeholder",
+            "Name": "MMM Info Panel",
+            "States": [
+                {
+                    "Image": "assets/images/placeholder"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "UUID": "io.djewell.mmomacro.info"
+        },
+        {
+            "Icon": "assets/images/placeholder",
+            "Name": "MMM KBM State",
+            "States": [
+                {
+                    "Image": "assets/images/placeholder"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "UUID": "io.djewell.mmomacro.kbmstate"
         }
     ],
     "SDKVersion": 2,
@@ -20,7 +42,7 @@
     "Description": "Macro set intended for MMO scenarios",
     "Name": "MMO Macro",
     "Icon": "assets/images/baseIcon",
-    "Version": "1.0.0",
+    "Version": "1.0.1",
     "OS": [
         {
             "Platform": "mac",

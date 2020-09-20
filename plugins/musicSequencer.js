@@ -43,7 +43,7 @@ class MusicSequencer
                     ks.hold('CTRL');
                     break;
                 case '^':
-                    ks.hold(['SHIFT');
+                    ks.hold(['SHIFT']);
                     break;
             }
     
