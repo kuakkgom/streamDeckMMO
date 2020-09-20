@@ -5,7 +5,6 @@ class KBMStateButton extends Button
 {
     #canvas;
     #context;
-    #intervalId;
 
     constructor(message, eventProcessor, emitter, globals)
     {

@@ -4,7 +4,7 @@ class KBMEventEntity
     #emitter;
     #holds = [];
     #id;
-    #keyDelay = (60000 / (5 * 100)) << 0; // or 50 wpm
+    #keyDelay = (60000 / (5 * 100)) << 0; // or 100 wpm based on some site
     #payload = {
         "callback": false,
         "commands": []
@@ -59,7 +59,6 @@ class KBMEventEntity
 
     handleInterrupt(kbm)
     {
-        console.info('interrupt', this.#id);
         this.#running = false;
         this.#emitter.removeListener("kbmInterruptProcessing", this.#boundInterruptHandler);
 
@@ -78,7 +77,6 @@ class KBMEventEntity
 
     startRun()
     {
-        console.info('start', this.#id);
         this.#running = true;
         this.#boundInterruptHandler = this.handleInterrupt.bind(this);
         this.#emitter.on("kbmInterruptProcessing", this.#boundInterruptHandler);

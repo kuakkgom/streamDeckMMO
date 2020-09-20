@@ -23,9 +23,8 @@ class KBMInfoButton extends Button
         const data = [
             "KBM Status",
             "Enabled: " + (this.eventProcessor.enabled ? "Yes" : "No"),
-            "Running: " + (this.eventProcessor.runState ? "Yes" : "No"),
+            "Running: " + (this.eventProcessor.isProcessing ? "Yes" : "No"),
             `Q Len: ${this.eventProcessor.queueSize}`,
-            `ID: ${this.eventProcessor.id}`
         ];
 
         this.#context.fillStyle = "#000";
@@ -33,7 +32,7 @@ class KBMInfoButton extends Button
         this.#context.textAlign = "left";
         this.#context.font = "10px Arial";
         this.#context.fillStyle = "#fff";
-        this.#context.fillText(data.join("\n"), 4, 10);
+        this.#context.fillText(data.join("\n"), 4, 20);
 
         this.emitter.emit("sendEvent", {
             "event": "setImage",

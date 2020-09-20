@@ -1,15 +1,12 @@
 const { command } = require("yargs/build/lib/command");
 
 /**
- * A wrapper around Robot - adjusted into a serial queue
- * 
- * Accepts Event: kbmPush
+ * Async is a biiiiiitch, just saying
  */
 class KBMEventProcessor
 {
     #emitter = false;
     #enabled = true;
-    #id;
     #kbm = false;
     #processing = false;
     #queue = [];
@@ -20,14 +17,24 @@ class KBMEventProcessor
         this.#emitter = emitter;
         this.#emitter.on("kbmPush", this.push.bind(this));
         this.#emitter.on("kbmInterrupted", this.realPush.bind(this));
-
-        this.#id = Math.random();
     }
 
     enable()
     {
         this.#enabled = true;
-        this.processQueue();
+
+        if (this.isProcessing)
+        {
+            if (this.#processing.isRunning)
+            {
+                this.#processing.startRun();
+            }
+            this.step();
+        }
+        else
+        {
+            this.process();
+        }
     }
 
     disable()
@@ -40,17 +47,17 @@ class KBMEventProcessor
     push(event)
     {
         this.#emitter.emit("kbmInterruptProcessing", this.#kbm);
-
         this.#queue.unshift(event);
 
-        if (!this.#processing)
+        if (!this.isProcessing)
         {
-            this.processQueue();
+            this.process();
         }
     }
 
     realPush(event)
     {
+        this.#processing = false;
         this.#queue.push(event);
     }
 
@@ -59,65 +66,51 @@ class KBMEventProcessor
         this.#queue = [];
     }
 
-    processQueue()
+    process()
     {
-        if (!this.#enabled)
+        if (!this.isProcessing && this.queueSize > 0)
+        {
+            this.#processing = this.#queue.shift();
+            this.#processing.startRun();
+            this.step();
+        }
+    }
+
+    step()
+    {
+        if (!this.#enabled || !this.#processing || !this.#processing.isRunning)
         {
             return;
         }
+    
+        const cmd = this.#processing.command();
+        const iteratorObj = cmd.next();
 
-        let command;
-        let commandGenerator;
-        let kbm;
-        let queueItem;
-
-        this.#processing = true;
-        console.info('pq',this.#processing);
-
-        while (queueItem = this.#queue.shift())
+        if (true === iteratorObj.done)
         {
-            queueItem.startRun();
-            commandGenerator = queueItem.command();
+            this.#processing = false;
 
-            kbm = this.#kbm.sleep(queueItem.keyDelay);
-            kbm = queueItem.applyHolds(kbm);
-
-            for (command = commandGenerator.next(); !command.done; command = commandGenerator.next())
+            if (iteratorObj.callback)
             {
-                console.log(command);
-                if (!queueItem.isRunning)
-                {
-                    console.info('BREAK');
-                    break;
-                }
-
-                kbm = kbm[command.value[0]].apply(kbm, command.value.slice(1));
-                kbm = kbm.sleep(queueItem.keyDelay);
-            }
-console.log('outside loop');
-            kbm = queueItem.removeHolds(kbm);
-
-            queueItem.clearInterrupt();
-
-            if (queueItem.callback)
-            {
-                kbm.go(queueItem.callback);
-            }
-            else
-            {
-                kbm.go();
+                iteratorObj.callback();
             }
 
-            kbm = this.#kbm;
+            this.process();
         }
+        else
+        {
+            let kbm = this.#kbm.sleep(this.#processing.keyDelay);
 
-        this.#processing = false;
+            kbm = this.#processing.applyHolds(kbm);
+            kbm[iteratorObj.value[0]].apply(kbm, iteratorObj.value.slice(1));
+            kbm = this.#processing.removeHolds(kbm);
+            kbm.go(this.step.bind(this));
+        }
     }
 
-    get runState()
+    get isProcessing()
     {
-        console.info('rs',this.#processing);
-        return this.#processing;
+        return !!this.#processing;
     }
 
     get enabled()
@@ -127,13 +120,7 @@ console.log('outside loop');
 
     get queueSize()
     {
-        console.log(this.#queue);
         return this.#queue.length;
-    }
-
-    get id()
-    {
-        return this.#id;
     }
 }
 
