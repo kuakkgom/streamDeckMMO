@@ -70,7 +70,12 @@ class Button
         this.#settings = {
             ...this.#settings,
             ...mergeSettings
-        };
+        };  
+
+        if (this.updateButtonRender)
+        {
+            this.updateButtonRender();
+        }
     }
 
     get uuid()

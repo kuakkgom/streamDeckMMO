@@ -70,7 +70,7 @@ class StreamDeckHandlerService
         }
 
         const button = instances[message.context];
-
+    
         this.sendEvent({
             "event": "setSettings",
             "context": button.uuid,
