@@ -1,12 +1,9 @@
-const keySequence = require('../core/keySequence');
-
 // Length as bits: FHQE, use hex
 // Notation: [octave][key][length]
 // S for rest
 // v - ^ for -/=/+ octave
 class MusicSequencer
 {
-    #emitter;
     #notesToKeys = {
         'C': 'Q',
         'C#': '2',
@@ -23,16 +20,10 @@ class MusicSequencer
         'C+': 'I',
     };
 
-    constructor(emitter)
-    {
-        this.#emitter = emitter;
-    }
-
-    parseSong(song, eigthLengthMS)
+    parsePlaySong(kEvent, song, eigthLengthMS)
     {
         const chunkRE = /(v|=|^)([A-GS#b+]{1,2})([0-9A-F]{1})/g;
         const commands = [];
-        const ks = new keySequence();
 
         eigthLength = eigthLength || 200;
     
@@ -40,10 +31,10 @@ class MusicSequencer
             switch(item[1])
             {
                 case 'v':
-                    ks.hold('CTRL');
+                    kEvent.hold('CTRL');
                     break;
                 case '^':
-                    ks.hold(['SHIFT']);
+                    kEvent.hold(['SHIFT']);
                     break;
             }
     
@@ -51,33 +42,28 @@ class MusicSequencer
     
             if ('S' !== item[2])
             {
-                ks.hold(notesToKeys[item[2]]);
+                kEvent.hold(notesToKeys[item[2]]);
             }
     
-            ks.sleep(length);
+            kEvent.sleep(length);
     
             if ('S' !== item[2])
             {
-                ks.release(notesToKeys[item[2]]);
+                kEvent.release(notesToKeys[item[2]]);
             }
     
             switch(item[1])
             {
                 case 'v':
-                    ks.release('CTRL');
+                    kEvent.release('CTRL');
                     break;
                 case '^':
-                    ks.hold('SHIFT');
+                    kEvent.hold('SHIFT');
                     break;
             }
         });
     
-        return commands;
-    }
-
-    playSequence(sequence)
-    {
-        this.#emitter.emit('kbmPush', sequence);
+        kEvent.emit();
     }
 }
 

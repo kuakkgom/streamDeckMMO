@@ -4,14 +4,16 @@ class Button
     #emitter;
     #eventProcessor;
     #globals;
+    #plugins;
     #settings = {};
     #uuid;
 
-    constructor(message, eventProcessor, emitter, globals)
+    constructor(message, eventProcessor, emitter, globals, plugins)
     {
         this.#emitter = emitter;
         this.#eventProcessor = eventProcessor;
         this.#globals = globals;
+        this.#plugins = plugins;
 
         this.#settings = message.payload.settings;
         this.#uuid = message.context;
@@ -40,6 +42,11 @@ class Button
     get globals()
     {
         return this.#globals;
+    }
+
+    get plugins()
+    {
+        return this.#plugins;
     }
 
     get settings()

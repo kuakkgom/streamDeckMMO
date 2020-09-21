@@ -1,4 +1,6 @@
 const ButtonFactory = require("../factory/buttonFactory");
+const glob = require("glob");
+const path = require("path");
 
 class StreamDeckHandlerService
 {
@@ -6,6 +8,7 @@ class StreamDeckHandlerService
     #emitter;
     #globals = {};
     #kbmEP;
+    #plugins = {};
     #ws;
 
     constructor(webSocket, emitter, kbmEventProcessor)
@@ -14,7 +17,18 @@ class StreamDeckHandlerService
         this.#emitter = emitter;
         this.#kbmEP = kbmEventProcessor;
 
+        this.loadPlugins();
+
         this.#emitter.on("sendEvent", this.sendEvent.bind(this));
+    }
+
+    loadPlugins()
+    {
+        glob.sync("./src/plugins/*.js").forEach((file) => {
+            let key = file.split('/').pop().split('.')[0];
+
+            this.#plugins[key] = require(path.resolve(file));
+        });
     }
 
     getInstance(contextUUID)
@@ -33,7 +47,7 @@ class StreamDeckHandlerService
 
         if (!(message.context in instances))
         {
-            instances[message.context] = ButtonFactory.create(message, this.#kbmEP, this.#emitter, this.#globals);
+            instances[message.context] = ButtonFactory.create(message, this.#kbmEP, this.#emitter, this.#globals, this.#plugins);
         }
         else
         {
@@ -52,7 +66,7 @@ class StreamDeckHandlerService
         }
         else
         {
-            instances[message.context] = ButtonFactory.create(message, this.#kbmEP, this.#emitter, this.#globals);
+            instances[message.context] = ButtonFactory.create(message, this.#kbmEP, this.#emitter, this.#globals, this.#plugins);
         }
 
         const button = instances[message.context];

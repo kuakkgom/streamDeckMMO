@@ -3,8 +3,7 @@ class KBMEventEntity
     #boundInterruptHandler;
     #emitter;
     #holds = [];
-    #id;
-    #keyDelay = (60000 / (5 * 100)) << 0; // or 100 wpm based on some site
+    #keyDelay = (1000 / 20) << 0;
     #payload = {
         "callback": false,
         "commands": []
@@ -14,7 +13,6 @@ class KBMEventEntity
     constructor(emitter)
     {
         this.#emitter = emitter;
-        this.#id = Math.random();
     }
 
     hold(key)
@@ -142,7 +140,7 @@ class KBMEventEntity
 
     set callback(func)
     {
-        if (typeof func === "Function")
+        if (typeof func === "function")
         {
             this.#payload.callback = func;
         }

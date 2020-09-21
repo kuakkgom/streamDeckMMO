@@ -1,3 +1,2 @@
 node_modules/*
-./node.log
-./node_err.log
+*.log

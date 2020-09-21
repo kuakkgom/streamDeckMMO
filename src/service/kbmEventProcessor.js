@@ -88,13 +88,12 @@ class KBMEventProcessor
 
         if (true === iteratorObj.done)
         {
-            this.#processing = false;
-
-            if (iteratorObj.callback)
+            if (this.#processing.callback)
             {
-                iteratorObj.callback();
+                this.#processing.callback();
             }
 
+            this.#processing = false;
             this.process();
         }
         else
