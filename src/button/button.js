@@ -4,6 +4,7 @@ class Button
     #emitter;
     #eventProcessor;
     #globals;
+    #id;
     #plugins;
     #settings = {};
     #uuid;
@@ -17,6 +18,7 @@ class Button
 
         this.#settings = message.payload.settings;
         this.#uuid = message.context;
+        this.#id = Math.random();
     }
 
     setData(key, value)
@@ -27,6 +29,11 @@ class Button
     getData(key)
     {
         return this.#data[key];
+    }
+
+    clearData()
+    {
+        this.#data = {};
     }
 
     get emitter()
@@ -42,6 +49,11 @@ class Button
     get globals()
     {
         return this.#globals;
+    }
+
+    get id()
+    {
+        return this.#id;
     }
 
     get plugins()

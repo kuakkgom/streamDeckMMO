@@ -63,6 +63,10 @@ class KBMEventProcessor
 
     emptyQueue()
     {
+        this.#emitter.emit("stopButtonMacro", this.#kbm);
+        this.#queue.forEach(kEvent => {
+            kEvent.cleanup();
+        });
         this.#queue = [];
     }
 

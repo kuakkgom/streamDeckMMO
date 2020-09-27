@@ -13,15 +13,24 @@ class ActionButton extends Button
         super(message, eventProcessor, emitter, globals, plugins);
 
         this.#renderer = new ActionButtonRenderService(emitter, this);
+        this.emitter.on("stopButtonMacro", this.stopMacro.bind(this));
+    }
+
+    stopMacro()
+    {
+        this.#macroRunning = false;
     }
 
     runMacro(callback, count)
     {
+        console.log("Running " + this.constructor.name + " id: " + this.id);
         const kEvent = new KBMEventEntity(this.emitter);
 
         if (!this.#macroRunning)
         {
             this.updateButtonRender();
+            this.clearData();
+            this.#macro = false;
 
             return;
         }
@@ -42,7 +51,8 @@ class ActionButton extends Button
         else
         {
             this.updateButtonRender();
-
+            this.clearData();
+            this.#macro = false;
             this.#macroRunning = false;
         }
     }
@@ -69,7 +79,8 @@ class ActionButton extends Button
         else
         {
             this.#macroRunning = true;
-            this.#macro = new Function("global", "plugins", "kEvent", this.settings.macro.trim());
+            let macroText = "console.log('fId: ' + fID);" + this.settings.macro.trim();
+            this.#macro = new Function("global", "plugins", "fID", "kEvent", macroText);
 
             if (this.#renderer.canAnimate)
             {
@@ -79,7 +90,8 @@ class ActionButton extends Button
             this.runMacro(this.#macro.bind(
                 this,
                 this.globals,
-                this.plugins
+                this.plugins,
+                Math.random()
             ), this.settings.runCount);
         }
     }
@@ -91,7 +103,7 @@ class ActionButton extends Button
 
     handleWillDisappear()
     {
-        // noop
+        this.emitter.removeListener("stopButtonMacro", this.stopMacro.bind(this));
     }
 }
 

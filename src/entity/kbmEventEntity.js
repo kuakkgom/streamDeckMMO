@@ -3,7 +3,7 @@ class KBMEventEntity
     #boundInterruptHandler;
     #emitter;
     #holds = [];
-    #keyDelay = (1000 / 20) << 0;
+    #keyDelay = (1000 / 40) << 0;
     #payload = {
         "callback": false,
         "commands": []
@@ -96,6 +96,13 @@ class KBMEventEntity
         })
     
         return kbm;
+    }
+
+    cleanup()
+    {
+        this.#running = false;
+        this.#emitter.removeListener("kbmInterruptProcessing", this.#boundInterruptHandler);
+        this.removeHolds();
     }
 
     *command()

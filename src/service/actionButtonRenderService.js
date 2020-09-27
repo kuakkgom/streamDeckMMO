@@ -8,7 +8,7 @@ class AnimationButtonRenderService
     #context;
     #delay;
     #emitter;
-    #fps = 24;
+    #fps = 10;
     #frames = [];
 
     constructor(emitter, button)
@@ -17,7 +17,7 @@ class AnimationButtonRenderService
         this.#button = button;
         this.#canvas = createCanvas(72, 72);
         this.#context = this.#canvas.getContext("2d");
-        this.#delay = (1000 / 24) << 0;
+        this.#delay = (1000 / this.#fps) << 0;
 
         if (this.hasImage)
         {
@@ -227,7 +227,12 @@ class AnimationButtonRenderService
 
     get hasImage()
     {
-        return !!this.#button.settings.iconFile;
+        if (this.#button.settings)
+        {
+            return !!this.#button.settings.iconFile;
+        }
+
+        return false;
     }
 
     get canAnimate()
